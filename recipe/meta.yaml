@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/blue-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/blue-{{ version }}.tar.gz
   sha256: 76b4f26884a8425042356601d80773db6e0e14bebaa7a59d7c54bf8cef2e2af5
 
 build:
@@ -14,16 +14,16 @@ build:
     - blue=blue:main
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python {{ python_min }}
   run:
     - black ==22.1.0
     - flake8 >=3.8,<5.0.0
-    - python >=3.6
+    - python >={{ python_min }}
 
 test:
   imports:
@@ -33,6 +33,7 @@ test:
     - blue --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://iblueit.dev/
